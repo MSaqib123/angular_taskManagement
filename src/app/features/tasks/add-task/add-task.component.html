@@ -1,0 +1,49 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="add-task mb-8 bg-gray-50 p-6 rounded-lg shadow-md">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Task Title</label>
+      <input formControlName="title" class="task-title w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter task title..." required>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Category</label>
+      <select formControlName="category" class="category w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="personal">Personal</option>
+        <option value="work">Work</option>
+        <option value="urgent">Urgent</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Due Date</label>
+      <input type="date" formControlName="dueDate" class="due-date w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Priority</label>
+      <select formControlName="priority" class="priority w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Recurrence</label>
+      <select formControlName="recurrence" class="recurrence w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="none">None</option>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Start Time</label>
+        <input type="time" formControlName="startTime" class="start-time w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">End Time</label>
+        <input type="time" formControlName="endTime" class="end-time w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn-add-task mt-4 w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 transition duration-200" [disabled]="form.invalid">Add Task</button>
+</form>

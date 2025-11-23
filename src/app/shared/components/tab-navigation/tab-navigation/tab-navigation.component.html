@@ -1,0 +1,6 @@
+<div class="tabs mb-6">
+  <ul class="flex border-b border-gray-200">
+    <li class="tab-link" [class.active]="currentTab() === 'tasks-tab'" (click)="tabChange.emit('tasks-tab')">Tasks</li>
+    <li class="tab-link" [class.active]="currentTab() === 'routines-tab'" (click)="tabChange.emit('routines-tab')">Daily Routine</li>
+  </ul>
+</div>

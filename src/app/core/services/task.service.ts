@@ -1,13 +1,17 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { Task } from '../models/task.model';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private tasksSignal = signal<Task[]>([]);
-  private filtersSignal = signal<{ category: string; status: string; priority: string; recurrence: string; search: string }>({
-    category: 'all', status: 'all', priority: 'all', recurrence: 'all', search: ''
-  });
+  private api=inject(ApiService);  private tasksSignal = signal<Task[]>([]);
+  private filtersSignal = signal<{
+  category: string;
+  status: string;
+  priority: string;
+  recurrence: string;
+  search: string;
+}>({ category: 'all', status: 'all', priority: 'all', recurrence: 'all', search: '' });
 
   filteredTasks = computed(() => {
     let filtered = this.tasksSignal();
@@ -20,7 +24,7 @@ export class TaskService {
     return filtered.sort((a, b) => a.orderIndex - b.orderIndex);
   });
 
-  constructor(private api: ApiService) {
+  constructor() {
     this.loadTasks();
   }
 
@@ -49,8 +53,11 @@ export class TaskService {
     this.api.delete('tasks/completed').subscribe(() => this.loadTasks());
   }
 
-  updateFilters(filters: Partial<typeof this.filtersSignal>) {
-    this.filtersSignal.update(f => ({ ...f, ...filters }));
-    this.loadTasks();  // Reload with new filters
+
+  updateFilters(filters: Partial<ReturnType<typeof this.filtersSignal>>) {
+    this.filtersSignal.update(prev => ({ ...prev, ...filters }));
+    this.loadTasks();
   }
+
+  
 }

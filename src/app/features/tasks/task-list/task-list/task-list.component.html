@@ -1,0 +1,21 @@
+<ul class="task-list space-y-4" dragDrop (orderChanged)="orderUpdated.emit($event)">
+  <li *ngFor="let todo of tasks" class="task-card bg-gray-100 p-4 rounded-lg flex justify-between items-center priority-{{todo.priority}} recurrence-{{todo.recurrence}} {{todo.isCompleted ? 'completed' : ''}}" [attr.data-id]="todo.id" draggable="true">
+    <div class="flex items-center space-x-3">
+      <input type="checkbox" class="toggle-task h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" [checked]="todo.isCompleted" (change)="toggle.emit(todo.id)">
+      <div>
+        <h3 class="text-lg font-semibold {{todo.isCompleted ? 'text-gray-500 line-through' : 'text-gray-800'}}">{{todo.title}}</h3>
+        <p class="text-sm text-gray-600">
+          Category: {{todo.category}} | Priority: {{todo.priority}} 
+          {{todo.dueDate ? '| Due: ' + (todo.dueDate | date:'shortDate') : ''}} 
+          {{todo.recurrence !== 'none' ? '| Recurrence: ' + todo.recurrence : ''}} 
+          {{todo.startTime || todo.endTime ? '| Time: ' + formatTime(todo.startTime) + ' - ' + formatTime(todo.endTime) : ''}}
+        </p>
+      </div>
+    </div>
+    <button class="btn-delete-task text-red-500 hover:text-red-700" (click)="delete.emit(todo.id)">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </li>
+</ul>

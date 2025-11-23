@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="add-routine mb-8 bg-gray-50 p-6 rounded-lg shadow-md">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Routine Title</label>
+      <input formControlName="title" class="routine-title w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter routine title..." required>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Notes</label>
+      <textarea formControlName="notes" class="notes w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Optional notes..."></textarea>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Start Time</label>
+        <input type="time" formControlName="startTime" class="start-time w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">End Time</label>
+        <input type="time" formControlName="endTime" class="end-time w-full p-3 mt-1 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn-add-routine mt-4 w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 transition duration-200" [disabled]="form.invalid">Add Routine</button>
+</form>
