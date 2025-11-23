@@ -14,5 +14,6 @@ import { TasksComponent } from "./features/tasks/tasks.component";
 })
 export class AppComponent {
   title = 'angular_taskManagement';
-  currentTab = signal('tasks-tab');
+  currentTab = signal<'tasks-tab' | 'routines-tab'>('tasks-tab');
+
 }

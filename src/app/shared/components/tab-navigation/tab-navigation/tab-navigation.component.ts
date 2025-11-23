@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-tab-navigation',
@@ -7,6 +7,11 @@ import { Component, EventEmitter, Output, signal } from '@angular/core';
   styleUrl: './tab-navigation.component.css'
 })
 export class TabNavigationComponent {
-  currentTab = signal('tasks-tab');
-  @Output() tabChange = new EventEmitter<string>();
+  
+  @Input({ required: true }) currentTab!: string;   // ← receive from parent
+  @Output() tabChange = new EventEmitter<string>(); // ← emit to parent
+
+  selectTab(tab: string) {
+    this.tabChange.emit(tab);
+  }
 }

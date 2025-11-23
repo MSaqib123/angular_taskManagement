@@ -1,6 +1,9 @@
 <div class="container max-w-4xl mx-auto p-8 bg-white rounded-2xl shadow-2xl my-10">
   <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-8">Pro Todo Manager</h1>
-  <app-tab-navigation (tabChange)="currentTab.set($event)"></app-tab-navigation>
+  <app-tab-navigation
+  [currentTab]="currentTab()"
+  (tabChange)="currentTab.set($event === 'tasks-tab' ? 'tasks-tab' : 'routines-tab')"
+></app-tab-navigation>
   <div class="tab-content-container">
     <div class="tab-content" id="tasks-tab" [hidden]="currentTab() !== 'tasks-tab'">
       <app-tasks></app-tasks>
