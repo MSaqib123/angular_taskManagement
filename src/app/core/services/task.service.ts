@@ -4,7 +4,8 @@ import { Task } from '../models/task.model';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private api=inject(ApiService);  private tasksSignal = signal<Task[]>([]);
+  private api=inject(ApiService);
+  private tasksSignal = signal<Task[]>([]);
   private filtersSignal = signal<{
   category: string;
   status: string;
@@ -30,7 +31,13 @@ export class TaskService {
 
   loadTasks() {
     const params = this.filtersSignal();
-    this.api.get<Task[]>('tasks', { search: params.search, category: params.category, status: params.status, priority: params.priority ? Number(params.priority) : null, recurrence: params.recurrence }).subscribe(tasks => this.tasksSignal.set(tasks));
+    // this.api.get<Task[]>('tasks', { search: params.search, category: params.category, status: params.status, priority: null, recurrence: params.recurrence }).subscribe(tasks => this.tasksSignal.set(tasks));
+    this.api.get<Task[]>('tasks').subscribe(
+      tasks => {
+        console.log(tasks);
+       return this.tasksSignal.set(tasks);
+      }
+    );
   }
 
   addTask(task: Partial<Task>) {

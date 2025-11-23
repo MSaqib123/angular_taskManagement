@@ -13,7 +13,7 @@ export class TaskListComponent {
   @Input() tasks: Task[] = [];
   @Output() toggle = new EventEmitter<string>();
   @Output() delete = new EventEmitter<string>();
-  @Output() orderUpdated = new EventEmitter<string[]>();
+  // @Output() orderUpdated = new EventEmitter<string[]>();
 
   formatTime(time?: string): string {
     if (!time) return '';

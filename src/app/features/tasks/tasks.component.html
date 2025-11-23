@@ -1,3 +1,4 @@
 <app-search (searchChange)="updateSearch($event)"></app-search>
 <app-add-task (taskAdded)="addTask($event)"></app-add-task>
 <app-filters (filtersChanged)="updateFilters($event)" (clearCompleted)="clearCompleted()"></app-filters>
+<app-task-list [tasks]="filteredTasks()" (toggle)="toggleTask($event)" (delete)="deleteTask($event)"></app-task-list>

@@ -1,4 +1,5 @@
-<ul class="task-list space-y-4" dragDrop (orderChanged)="orderUpdated.emit($event)">
+<!-- <ul class="task-list space-y-4" dragDrop (orderChanged)="orderUpdated.emit($event)"> -->
+<ul class="task-list space-y-4" dragDrop>
   <li *ngFor="let todo of tasks" class="task-card bg-gray-100 p-4 rounded-lg flex justify-between items-center priority-{{todo.priority}} recurrence-{{todo.recurrence}} {{todo.isCompleted ? 'completed' : ''}}" [attr.data-id]="todo.id" draggable="true">
     <div class="flex items-center space-x-3">
       <input type="checkbox" class="toggle-task h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" [checked]="todo.isCompleted" (change)="toggle.emit(todo.id)">
