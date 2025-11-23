@@ -41,8 +41,31 @@ export class TaskService {
   }
 
   addTask(task: Partial<Task>) {
-    this.api.post<string>('tasks', task).subscribe(() => this.loadTasks());
+    console.log(task);
+
+     const apiTask = {
+      title: task.title,
+      description: task.description || "", // optional
+      priority: this.priorityToNumber(task.priority!), // "low" → 0
+      category: task.category || "other",
+      status: "pending", // or "inprogress", "completed" based on your backend
+      recurrence: task.recurrence || "none",
+      dueDate: task.dueDate ? new Date(task.dueDate).toISOString() : null,
+      orderIndex: 999 // backend will fix it
+    };
+    this.api.post<string>('tasks', apiTask).subscribe(() => this.loadTasks());
   }
+  
+  private priorityToNumber(priority: string): number {
+    const map: Record<string, number> = {
+      'low': 0,
+      'medium': 1,
+      'high': 2,
+      'urgent': 3
+    };
+    return map[priority] ?? 0;
+  }
+
 
   toggleTask(id: string) {
     this.api.put(`tasks/${id}/toggle`, {}).subscribe(() => this.loadTasks());

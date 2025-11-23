@@ -1,7 +1,9 @@
+
+/* src/styles.scss */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+tail
 
 body {
     font-family: 'Nunito Sans', sans-serif;
@@ -40,57 +42,49 @@ body {
 .tab-content-container .tab-content.hidden {
     display: none !important;
 }
-
-.task-card, .routine-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-    animation: slideIn 0.3s ease-out;
+/* --------------------- FIX FLEX LAYOUT --------------------- */
+.task-card {
+  transition: all 0.3s ease;
+  animation: slideIn 0.4s ease-out;
 }
 
-.task-card:hover, .routine-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+/* Hover lift effect */
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
+/* Priority left border */
+.task-card.priority-high    { border-left: 5px solid #ef4444; }
+.task-card.priority-medium  { border-left: 5px solid #f59e0b; }
+.task-card.priority-low     { border-left: 5px solid #10b981; }
+
+/* Background tint based on recurrence */
+.task-card.recurrence-daily    { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); }
+.task-card.recurrence-weekly   { background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); }
+.task-card.recurrence-monthly  { background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); }
+
+/* Completed style */
 .task-card.completed {
-    opacity: 0.7;
-    background-color: #f3f4f6;
+  background: #f3f4f6 !important; /* override gradient when completed */
 }
 
-.task-card.priority-high {
-    border-left: 5px solid #ef4444;
+/* Group hover for delete button */
+.task-card .group:hover .btn-delete-task {
+  opacity: 1;
 }
 
-.task-card.priority-medium {
-    border-left: 5px solid #f59e0b;
+/* Drag styles */
+.task-list.dragging .task-card { opacity: 0.5; }
+.task-list.dragging .task-card.dragged {
+  opacity: 0.2;
+  transform: scale(0.95);
 }
 
-.task-card.priority-low {
-    border-left: 5px solid #10b981;
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
 }
-
-.task-card.recurrence-daily::before,
-.task-card.recurrence-weekly::before,
-.task-card.recurrence-monthly::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 8px;
-}
-
-.task-card.recurrence-daily::before {
-    background-color: #3b82f6;
-}
-
-.task-card.recurrence-weekly::before {
-    background-color: #8b5cf6;
-}
-
-.task-card.recurrence-monthly::before {
-    background-color: #ec4899;
-}
-
 @keyframes slideIn {
     from {
         transform: translateY(20px);
